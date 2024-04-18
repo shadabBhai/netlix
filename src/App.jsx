@@ -1,9 +1,9 @@
-import RegistrationForm from "./components/RegistrationForm";
+import Body from "./components/Body";
 
 function App() {
   return (
     <>
-      <RegistrationForm />
+      <Body />
     </>
   );
 }
