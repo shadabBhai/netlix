@@ -1,5 +1,10 @@
+import { useState } from "react";
 import Header from "./Header";
 const Login = () => {
+  const [isSignInForm, setSignInform] = useState(true);
+  const handelSignInForm = () => {
+    setSignInform(!isSignInForm);
+  };
   return (
     <>
       <Header />
@@ -14,7 +19,16 @@ const Login = () => {
           action=""
           className=" absolute w-3/12 p-12  bg-black bg-opacity-70 my-36 mx-auto right-0 left-0 text-white "
         >
-          <h1 className="my-2 py-4 text-4xl font-bold ">Sign In</h1>
+          <h1 className="my-2 py-4 text-4xl font-bold ">
+            {isSignInForm ? "Sign In" : "Sign Up"}
+          </h1>
+          {!isSignInForm && (
+            <input
+              type="text"
+              placeholder="Ful Name"
+              className="p-2 my-4 w-full  bg-black bg-opacity-80 rounded-lg"
+            />
+          )}
           <input
             type="text"
             placeholder="Email Address"
@@ -25,11 +39,17 @@ const Login = () => {
             placeholder="Password"
             className="p-2 my-4 w-full  bg-black bg-opacity-80 rounded-lg"
           />
+
           <button className="p-2 my-6 w-full bg-red-600 rounded-lg">
-            Sign In
+            {isSignInForm ? " Sign In" : "Sign Up"}
           </button>
-          <p>
-            <span className="text-gray-400">New to Netlix ?</span> Sing Up
+          <p
+            className="text-gray-400 cursor-pointer"
+            onClick={handelSignInForm}
+          >
+            {isSignInForm
+              ? " New to Netlix ? Sign Up"
+              : " Alredy Register ? Sign In"}
           </p>
         </form>
       </div>
