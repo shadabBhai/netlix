@@ -1,7 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import { checkForm } from "../utils/Validate";
 const Login = () => {
   const [isSignInForm, setSignInform] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const email = useRef(null);
+  const password = useRef(null);
+
+  const handleFormValidation = () => {
+    // form validation
+    const message = checkForm(email.current.value, password.current.value);
+    setErrorMessage(message);
+  };
   const handelSignInForm = () => {
     setSignInform(!isSignInForm);
   };
@@ -16,6 +27,7 @@ const Login = () => {
       </div>
       <div>
         <form
+          onSubmit={(e) => e.preventDefault()}
           action=""
           className=" absolute w-3/12 p-12  bg-black bg-opacity-70 my-36 mx-auto right-0 left-0 text-white "
         >
@@ -25,22 +37,28 @@ const Login = () => {
           {!isSignInForm && (
             <input
               type="text"
-              placeholder="Ful Name"
+              placeholder="Full Name"
               className="p-2 my-4 w-full  bg-black bg-opacity-80 rounded-lg"
             />
           )}
           <input
+            ref={email}
             type="text"
             placeholder="Email Address"
             className="p-2 my-4 w-full  bg-black bg-opacity-80 rounded-lg"
           />
+
           <input
+            ref={password}
             type="password"
             placeholder="Password"
             className="p-2 my-4 w-full  bg-black bg-opacity-80 rounded-lg"
           />
-
-          <button className="p-2 my-6 w-full bg-red-600 rounded-lg">
+          <p className="text-red-500 font-bold ">{errorMessage}</p>
+          <button
+            className="p-2 my-6 w-full bg-red-600 rounded-lg"
+            onClick={handleFormValidation}
+          >
             {isSignInForm ? " Sign In" : "Sign Up"}
           </button>
           <p
